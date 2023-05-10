@@ -26,4 +26,7 @@ public class Transaction {
     private String referenceId;
     @ManyToOne
     private User user;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "transaction")
+    private Booking booking;
 }

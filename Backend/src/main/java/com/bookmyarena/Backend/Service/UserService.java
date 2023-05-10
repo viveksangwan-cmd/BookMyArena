@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface UserService {
-    public User createUser(String email,String password);
+    public User createUser(User user);
     public List<Transaction> getUserTransactionsWithUserId(int id);
+
+    User findById(int id);
 }

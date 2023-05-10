@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class FileStorageService implements IFileStorageService {
 
     @Override
-    public void save(MultipartFile file,String name,String path) {
+    public String save(MultipartFile file,String name,String path) {
         Path root = Path.of(path);
         try{
             if(!Files.exists(root)){
@@ -27,6 +27,7 @@ public class FileStorageService implements IFileStorageService {
                 }
             }
             Files.copy(file.getInputStream(),root.resolve(name));
+            return name;
         }catch (Exception e){
             if(e instanceof FileAlreadyExistsException){
                 throw new RuntimeException("File with this name already exits");

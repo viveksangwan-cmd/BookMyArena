@@ -17,20 +17,26 @@ public class User {
     private String firstName;
     private String lastName;
     private String imageUrl;
+    private String contact;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
-    private String passsword;
+    private String password;
     @Column(nullable = false)
     private boolean isActive;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "users")
-    Set<Role> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "ownerId")
-    Set<Arena> arenas = new HashSet<>();
+    private Set<Arena> arenas = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
-    Set<Transaction> transactions = new HashSet<>();
+    private Set<Transaction> transactions = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Booking> bookings = new HashSet<>();
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Address> addresses = new HashSet<>();
 }

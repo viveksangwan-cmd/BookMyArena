@@ -13,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class UserImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
@@ -22,15 +22,12 @@ public class UserImpl implements UserService {
     TransactionDao transactionDao;
 
     @Override
-    public User createUser(String email, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setPasssword(password);
+    public User createUser(User user) {
         try{
             userDao.save(user);
             log.info("New User Created");
         }catch (Exception ex){
-
+            log.error("New user creation failed : "+ex.getMessage());
         }
         return user;
     }
@@ -43,5 +40,10 @@ public class UserImpl implements UserService {
         userDao.save(user);
         Transaction transaction = new Transaction();
         return List.copyOf(userList.get(0).getTransactions());
+    }
+
+    @Override
+    public User findById(int id) {
+        return userDao.findById(id).get();
     }
 }
